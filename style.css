@@ -6,16 +6,23 @@ body {
   margin: auto;
 }
 
-label, input, button {
+label {
   display: block;
-  margin: 1em 0;
+  margin: 1em 0 0.5em;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.4em;
+  margin-bottom: 0.5em;
 }
 
 button {
-  padding: 0.5em 1em;
+  padding: 0.6em 1.2em;
   background: #3b82f6;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  margin-top: 1em;
 }
