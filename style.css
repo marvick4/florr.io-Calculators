@@ -1,0 +1,21 @@
+body {
+  font-family: sans-serif;
+  background: #f4f4f4;
+  padding: 2em;
+  max-width: 600px;
+  margin: auto;
+}
+
+label, input, button {
+  display: block;
+  margin: 1em 0;
+}
+
+button {
+  padding: 0.5em 1em;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
