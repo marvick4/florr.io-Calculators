@@ -33,58 +33,64 @@ const petalData = {
 
 const petalList = [];
 
-function updatePetalDropdown() {
-  const rarity = document.getElementById("rarity").value;
+document.addEventListener("DOMContentLoaded", () => {
+  const raritySelect = document.getElementById("rarity");
   const petalSelect = document.getElementById("petal");
-  petalSelect.innerHTML = "";
 
-  const petals = Object.keys(petalData[rarity]);
-  petals.forEach(name => {
-    const option = document.createElement("option");
-    option.value = name;
-    option.textContent = name;
-    petalSelect.appendChild(option);
-  });
-}
+  function updatePetalDropdown() {
+    const rarity = raritySelect.value;
+    petalSelect.innerHTML = "";
 
-document.getElementById("rarity").addEventListener("change", updatePetalDropdown);
-updatePetalDropdown(); // load initial options
-
-function addPetal() {
-  const rarity = document.getElementById("rarity").value;
-  const name = document.getElementById("petal").value;
-  const amount = parseInt(document.getElementById("amount").value);
-
-  petalList.push({ rarity, name, amount });
-
-  const li = document.createElement("li");
-  li.textContent = `${amount}x ${rarity} ${name}`;
-  document.getElementById("petalList").appendChild(li);
-}
-
-function calculate() {
-  const duplicator = document.getElementById("duplicator").checked;
-  const talent = parseInt(document.getElementById("talent").value);
-
-  let totalHeal = 0;
-  let basilBonus = 0;
-
-  for (const { rarity, name, amount } of petalList) {
-    const data = petalData[rarity]?.[name];
-    if (!data) continue;
-
-    if (data.type === "Multiplier") {
-      basilBonus += data.basil * amount;
-    } else {
-      let heal = data.heal * amount;
-      heal *= duplicator ? data.duplicator : 1;
-      totalHeal += heal;
-    }
+    const petals = Object.keys(petalData[rarity] || {});
+    petals.forEach(name => {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = name;
+      petalSelect.appendChild(option);
+    });
   }
 
-  totalHeal *= (1 + basilBonus);
-  totalHeal *= (1 + talent * 0.10);
+  raritySelect.addEventListener("change", updatePetalDropdown);
+  updatePetalDropdown(); // Run initially once
 
-  document.getElementById("result").textContent =
-    `Total Heal Per Second: ${totalHeal.toFixed(2)}`;
-}
+  document.getElementById("petalForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const rarity = raritySelect.value;
+    const name = petalSelect.value;
+    const amount = parseInt(document.getElementById("amount").value);
+
+    petalList.push({ rarity, name, amount });
+
+    const li = document.createElement("li");
+    li.textContent = `${amount}x ${rarity} ${name}`;
+    document.getElementById("petalList").appendChild(li);
+  });
+
+  document.querySelector("button[onclick='calculate()']").onclick = () => {
+    const duplicator = document.getElementById("duplicator").checked;
+    const talent = parseInt(document.getElementById("talent").value);
+
+    let totalHeal = 0;
+    let basilBonus = 0;
+
+    for (const { rarity, name, amount } of petalList) {
+      const data = petalData[rarity]?.[name];
+      if (!data) continue;
+
+      if (data.type === "Multiplier") {
+        basilBonus += data.basil * amount;
+      } else {
+        let heal = data.heal * amount;
+        heal *= duplicator ? data.duplicator : 1;
+        totalHeal += heal;
+      }
+    }
+
+    totalHeal *= (1 + basilBonus);
+    totalHeal *= (1 + talent * 0.10);
+
+    document.getElementById("result").textContent =
+      `Total Heal Per Second: ${totalHeal.toFixed(2)}`;
+  };
+});
