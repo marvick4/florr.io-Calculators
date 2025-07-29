@@ -8,12 +8,32 @@
 </head>
 <body>
   <h1>Florr.io Heal Per Second Calculator</h1>
-  
-  <label for="petal">Petal Name:</label>
-  <input id="petal" placeholder="e.g. dahlia" />
 
-  <label for="amount">Amount:</label>
-  <input id="amount" type="number" value="1" min="1" />
+  <label>Petal:
+    <select id="petal">
+      <option value="dahlia">Dahlia</option>
+      <option value="rose">Rose</option>
+      <option value="tulip">Tulip</option>
+    </select>
+  </label>
+
+  <label>Rarity:
+    <select id="rarity">
+      <option value="common">Common</option>
+      <option value="uncommon">Uncommon</option>
+      <option value="rare">Rare</option>
+      <option value="epic">Epic</option>
+      <option value="legendary">Legendary</option>
+    </select>
+  </label>
+
+  <label>Amount: <input type="number" id="amount" value="1" min="1" /></label>
+
+  <label>Basil Bonus (%): <input type="number" id="basil" value="0" min="0" /></label>
+
+  <label>Heal Talent Level (10% each): <input type="number" id="talent" value="0" min="0" /></label>
+
+  <label><input type="checkbox" id="duplicator" /> Duplicator Talent (Dahlia only)</label>
 
   <button onclick="calculate()">Calculate</button>
 
