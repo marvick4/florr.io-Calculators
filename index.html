@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Florr.io Heal Calculator</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Florr.io Heal Per Second Calculator</h1>
+  <h1>Florr.io Heal Calculator</h1>
 
-  <label>Petal:
-    <select id="petal">
-      <option value="dahlia">Dahlia</option>
-      <option value="rose">Rose</option>
-      <option value="tulip">Tulip</option>
-    </select>
-  </label>
+  <form id="petalForm" onsubmit="addPetal(); return false;">
+    <label>Rarity:
+      <select id="rarity">
+        <option>Ultra</option>
+        <option>Super</option>
+        <option>Mythic</option>
+        <option>SuperSpecial</option>
+      </select>
+    </label>
 
-  <label>Rarity:
-    <select id="rarity">
-      <option value="common">Common</option>
-      <option value="uncommon">Uncommon</option>
-      <option value="rare">Rare</option>
-      <option value="epic">Epic</option>
-      <option value="legendary">Legendary</option>
-    </select>
-  </label>
+    <label>Petal:
+      <select id="petal"></select>
+    </label>
 
-  <label>Amount: <input type="number" id="amount" value="1" min="1" /></label>
+    <label>Amount:
+      <input type="number" id="amount" value="1" min="1">
+    </label>
 
-  <label>Basil Bonus (%): <input type="number" id="basil" value="0" min="0" /></label>
+    <button type="submit">Add Petal</button>
+  </form>
 
-  <label>Heal Talent Level (10% each): <input type="number" id="talent" value="0" min="0" /></label>
+  <hr>
 
-  <label><input type="checkbox" id="duplicator" /> Duplicator Talent (Dahlia only)</label>
+  <label><input type="checkbox" id="duplicator"> Duplicator Talent</label><br>
+  <label>Heal Talent Level: <input type="number" id="talent" value="0" min="0"></label>
 
-  <button onclick="calculate()">Calculate</button>
+  <h2>Petals Added</h2>
+  <ul id="petalList"></ul>
 
-  <p id="output"></p>
+  <button onclick="calculate()">Calculate Total Healing</button>
+
+  <h2 id="result"></h2>
 
   <script src="script.js"></script>
 </body>
